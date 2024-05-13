@@ -1,0 +1,12 @@
+Column Name	Description	Data Type
+Source_Group_Id	The group ID of the source artifact	String
+Source_Artifact_Id	The ID of the source artifact	String
+Source_Version	The version ID of the source artifact	String
+Source_Release_Date	The release date of the source artifact	Date/Time (ISO 8601 format)
+Source_Release_Year	The release year of the source artifact	Integer
+Target_Group_Id 	The group ID of the target artifact	String
+Target_Artifact_Id 	The ID of the target artifact	String
+Target_Version	The version ID of the target artifact	String
+Target_Release_Date	 The release date of the target artifact	Date/Time (ISO 8601 format)
+Target_Release_Year 	The release year of the target artifact	 Integer
+            		
