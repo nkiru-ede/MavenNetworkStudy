@@ -19,13 +19,15 @@ Steps to replicate:
 3. Ensure that your project directory look like this
 my_project/
 ├── run_dataanalysis.bat
-├── datAnalysis.py
+├── dataAnalysis.py
 ├── requirements.txt
 ├── 2018dataset.csv
 
 
-5. 
+5. execute 'run_dataanalysis.bat'
 
+Steps to unit testing:
+1. 
 Unit Test: can be run with the run_tests.bat or running the command run_tests.bat from command prompt
 
 
