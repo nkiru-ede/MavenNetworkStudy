@@ -1,6 +1,8 @@
 
 
-This repository contains Maven repository data extracted in 2018 by Benelallam et al. The repo contains the Maven artifacts (Source artifacts), their dependencies (Target artifacts), and their release dates.
+This repository contains Maven repository data extracted in 2018 by Benelallam et al. The repo contains the Maven artifacts (Source artifacts), their dependencies (Target artifacts), and their release dates. 
+
+The dataset showing the source artifacts, target artifacts and release dates can be downloaded from here: https://drive.google.com/file/d/1--zotLE4XjxfENuuDY_AezTeTJS4EJU-/view?usp=sharing
 
 To illustrate the growth of Maven repository, across the years, we have included three datasets -  GAV1(GAV1.tsv), GAV2(GAV2.tsv) and GAV3(GAV3.tsv) - the three datasets shows the maven artifacts, their dependencies and release dates.
 
