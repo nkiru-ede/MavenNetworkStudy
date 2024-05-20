@@ -9,9 +9,13 @@ To illustrate the growth of Maven repository, across the years, we have included
 To get a true sense of the actual growth of the Maven repository, we look further into the aggregation of GAV that ignores version (GA) and artifact id (G) - two data sets show this - GA.tsv contains maven artifacts (without versions), their dependencies and release dates
           - G.tsv contains the maven groups (without versions and artifact id), their dependencies and release dates
 
-Schema.txt - outlines the nature of all datasets
+Schema_G.txt, Schema_GA.txt, Schema_GAV.txt  - outlines the nature of all datasets
 
 
+
+Steps to replicate:
+1. Download dataset containing the source and target artifacts via the link - https://drive.google.com/file/d/1--zotLE4XjxfENuuDY_AezTeTJS4EJU-/view?usp=sharing
+2. 
 
 Unit Test: can be run with the run_tests.bat or running the command run_tests.bat from command prompt
 
