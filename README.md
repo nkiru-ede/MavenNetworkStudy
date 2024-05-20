@@ -27,7 +27,13 @@ my_project/
 5. execute 'run_dataanalysis.bat'
 
 Steps to unit testing:
-1. 
-Unit Test: can be run with the run_tests.bat or running the command run_tests.bat from command prompt
+1. Download unittest folder
+2. Ensure the downloaded folder look like this
+3. unittest/
+├── run_test.bat
+├── unittest.py
+├── requirements.txt
+
+4. Unit Test: can be run with the run_tests.bat or running the command run_tests.bat from command prompt
 
 
