@@ -16,12 +16,8 @@ To get a true sense of the actual growth of the Maven repository, we look furthe
 Steps to replicate:
 1. Download the 'Project' folder
 2. Download dataset containing the source and target artifacts via the link into the project folder - https://drive.google.com/file/d/1--zotLE4XjxfENuuDY_AezTeTJS4EJU-/view?usp=sharing
-3. Ensure that your project directory look like this
-my_project/
-├── run_dataanalysis.bat
-├── dataAnalysis.py
-├── requirements.txt
-├── 2018dataset.csv
+3. Ensure that your project directory look like this [steps](/steps.md)
+
 
 
 5. execute 'run_dataanalysis.bat'
