@@ -28,7 +28,7 @@ my_project/
 
 Steps to unit testing:
 1. Download unittest folder
-2. Ensure the downloaded folder look like [test_steps.md]
+2. Ensure the downloaded folder look like [test_steps.md](/test_steps)
 
 
 
