@@ -14,22 +14,7 @@ To get a true sense of the actual growth of the Maven repository, we look furthe
 
 
 Steps to replicate:
-1. Download the 'Project' folder
-2. Download dataset containing the source and target artifacts via the link into the project folder - https://drive.google.com/file/d/1--zotLE4XjxfENuuDY_AezTeTJS4EJU-/view?usp=sharing
-3. Ensure that your project directory look like this [steps](/steps.md)
-
-
-
-5. execute 'run_dataanalysis.bat'
-
-Steps to unit testing:
-1. Download unittest folder
-2. Ensure the downloaded folder look like [test_steps.md](/test_steps.md)
-
-
-
-
-4. Unit Test: can be run with the run_tests.bat or running the command run_tests.bat from command prompt
+[experiments](experiments.md)
 
 
 
