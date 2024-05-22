@@ -7,6 +7,6 @@ Target_Group_Id 	The group ID of the target artifact	String
 Target_Artifact_Id 	The ID of the target artifact	String
 Target_Release_Date	 The release date of the target artifact	Date/Time (ISO 8601 format)
 Target_Release_Year 	The release year of the target artifact	 Integer
-Target_first_release_date	The release date of the first version of the artifact	Date/Time (ISO 8601 format)
-Target_last_release_date	The release date of the last version of the artifact	Date/Time (ISO 8601 format)
-Version_count	The total count of versions released for each artifact	Integer
+Target_First_Release_Date	The release date of the first version of the artifact	Date/Time (ISO 8601 format)
+Target_Last_Release_Date	The release date of the last version of the artifact	Date/Time (ISO 8601 format)
+Version_Count	The total count of versions released for each artifact	Integer
