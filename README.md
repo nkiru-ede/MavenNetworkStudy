@@ -28,13 +28,8 @@ my_project/
 
 Steps to unit testing:
 1. Download unittest folder
-2. Ensure the downloaded folder look like this
-3.| File/Directory     | Description       |
-|--------------------|-------------------|
-| `unittest/`        | Root directory    |
-| `run_test.bat`     | Batch file to run tests |
-| `unittest.py`      | Python unit tests |
-| `requirements.txt` | Dependencies list |
+2. Ensure the downloaded folder look like [/test_steps.md]
+
 
 
 
