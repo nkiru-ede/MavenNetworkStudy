@@ -29,10 +29,14 @@ my_project/
 Steps to unit testing:
 1. Download unittest folder
 2. Ensure the downloaded folder look like this
-3. unittest/
-├── run_test.bat
-├── unittest.py
-├── requirements.txt
+3.| File/Directory     | Description       |
+|--------------------|-------------------|
+| `unittest/`        | Root directory    |
+| `run_test.bat`     | Batch file to run tests |
+| `unittest.py`      | Python unit tests |
+| `requirements.txt` | Dependencies list |
+
+
 
 4. Unit Test: can be run with the run_tests.bat or running the command run_tests.bat from command prompt
 
