@@ -100,7 +100,7 @@ def process_maven_data(csv_file_path):
 
     return merged_G_df, merged_GA_df
 
-# Example usage
+#
 csv_file_path = "/content/drive/MyDrive/maven/2018dataset.csv"
 merged_G_df, merged_GA_df = process_maven_data(csv_file_path)
 
