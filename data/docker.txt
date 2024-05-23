@@ -11,4 +11,4 @@ COPY . /app
 RUN pip install --no-cache-dir pandas networkx
 
 # Run the Python script when the container launches
-CMD ["python", "dataAnalysis.ipynb"]
+CMD ["python", "dataAnalysis.py"]
