@@ -53,7 +53,7 @@ org.glassfish.connectors:descriptors:3.1-b36,org.glassfish.packager:glassfish-jc
         # Call the function with the sample data
         merged_G_df, merged_GA_df = process_maven_data(temp_file_path)
 
-        # Placeholder DataFrames for demonstration purposes
+        
         expected_G_df = pd.DataFrame(columns=['Source_Group_Id', 'Source_Version', 'Source Release Date', 'Source Release Year',
                                               'Target_Group_Id', 'Target_Version', 'Target Release Date', 'Target Release Year',
                                               'Target_First_Release_Date', 'Target_Last_Release_Date', 'Target_Version_Count',
@@ -63,7 +63,7 @@ org.glassfish.connectors:descriptors:3.1-b36,org.glassfish.packager:glassfish-jc
                                                 'Target_First_Release_Date', 'Target_Last_Release_Date', 'Target_Version_Count',
                                                 'Source_First_Release_Date', 'Source_Last_Release_Date', 'Source_Version_Count'])
 
-        # Assert that the resulting DataFrames match the expected ones
+        # check that the DataFrames match the expected ones
         pd.testing.assert_frame_equal(merged_G_df, expected_G_df)
         pd.testing.assert_frame_equal(merged_GA_df, expected_GA_df)
 
