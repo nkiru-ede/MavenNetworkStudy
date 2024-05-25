@@ -23,4 +23,4 @@ TODO: version of python required etc. Should switch later to docker.
 | input:  |  `data/GAV1.zip` , `data/GAV2.zip`, `data/GAV3.zip`  |
 | output: | `data/GA.zip` , `data/G.tsv`   |
 | notes:    | TODO   |
-| tests:    | `tests/unittest.py`   |
+| tests:    | `tests/test_aggregate_g.py` , `tests/test_aggregate_ga.py`  |
