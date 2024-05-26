@@ -24,7 +24,7 @@ def process_merged_GA(csv_file_path):
 
     df = pd.DataFrame(valid_rows)
 
-    # Remove numeric headers
+
     df.columns = df.iloc[0]
     df = df[1:]
     df = df.rename_axis(None, axis=1)
