@@ -20,7 +20,7 @@ TODO: version of python required etc. Should switch later to docker.
 | Step:    | Aggregated GAV graph to GA and G graphs as described in paper section TODO |
 | -------- | ------- |
 | Script:    | `Project/aggregate_ga.py`, `Project/aggregate_g.py` |
-| input:  |  `data/GAV1.zip` , `data/GAV2.zip`, `data/GAV3.zip`  |
+| input:  |  `data/GAV1.zip` , `data/GAV2.zip`, `data/GAV3.zip`, `test_data`  |
 | output: | `data/GA.zip` , `data/G.tsv`   |
 | notes:    | TODO   |
 | tests:    | `tests/test_aggregate_g.py` , `tests/test_aggregate_ga.py`  |
