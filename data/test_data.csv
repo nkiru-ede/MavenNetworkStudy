@@ -3,10 +3,4 @@ group1:artifact1:version1,group2:dependency1:version1,Jar,1/01/2022,group1:artif
 group1:artifact1:version1,group2:dependency1:version1,Jar,1/01/2022,group1:artifact1:version1,Jar,1/01/2022
 group2:artifact2:version1,group1:dependency2:version1,Jar,1/01/2022,group2:artifact2:version1,Jar,1/01/2022
 group2:artifact2:version1,group1:dependency2:version1,Jar,1/01/2022,group2:artifact2:version1,Jar,1/01/2022
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
-,,,,,,
+group2:artifact2:version1,group3:dependency2:version1,Jar,1/01/2022,group2:artifact2:version1,Jar,1/01/2022
