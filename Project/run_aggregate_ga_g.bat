@@ -24,8 +24,9 @@ call venv\Scripts\activate
 :: Install dependencies
 pip install -r requirements.txt
 
-:: Run the analysis script
-python dataanalysis.py
+:: Run the aggregation script
+python aggregate_ga.py
+python aggregate_g.py
 
 :: Deactivate and remove the virtual environment
 call venv\Scripts\deactivate
