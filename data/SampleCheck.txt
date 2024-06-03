@@ -1,0 +1,14 @@
+Subsetdataset	Row No.	Maven Link
+data/GAV1	9	https://mvnrepository.com/artifact/com.fedepaolapps.postman/sample/1.0.3
+data/GAV1	96	https://mvnrepository.com/artifact/org.jclouds/jclouds-allblobstore/1.5.0
+data/GAV1	"544,181"	https://mvnrepository.com/artifact/org.everrest/everrest-core/1.13.0
+data/GAV1	"929,861"	https://mvnrepository.com/artifact/org.apache.myfaces.tobago/tobago-example-demo/1.0.19
+data/GAV1	"929, 862"	https://mvnrepository.com/artifact/org.apache.tuscany.sca/tuscany-binding-jsonrpc-runtime/2.0-M5
+data/GAV2	1	https://mvnrepository.com/artifact/org.apache.myfaces.tobago/tobago-theme-speyside/1.0.19
+data/GAV2	207	https://mvnrepository.com/artifact/org.juzu/juzu-core/0.7.0-beta17
+data/GAV2	"663, 932"	https://mvnrepository.com/artifact/com.pacificwebconsulting.core/core-microservice/2.0.4
+data/GAV3	210	https://mvnrepository.com/artifact/org.ow2.petals/petals-cdk-core/4.1.3
+data/GAV3	403288	https://mvnrepository.com/artifact/org.testcontainers/testcontainers/1.1.5
+		
+		
+		
