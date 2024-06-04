@@ -1,0 +1,6 @@
+Artifact,Dependencies,packaging_x,Upstream Release Date,artifact,packaging_y,Dependency Release Date
+group1:artifact1:version1,group2:artifact1:version1,Jar,1/01/2022,group1:artifact1:version1,Jar,1/01/2023
+group1:artifact1:version1,group2:artifact1:version1,Jar,1/01/2022,group1:artifact1:version1,Jar,1/01/2022
+group2:artifact2:version1,group1:artifact2:version1,Jar,1/01/2022,group2:artifact2:version1,Jar,1/01/2022
+group2:artifact2:version1,group1:artifact2:version1,Jar,1/01/2022,group2:artifact2:version1,Jar,1/01/2022
+group2:artifact2:version1,group3:artifact2:version1,Jar,1/01/2022,group2:artifact2:version1,Jar,1/01/2022
