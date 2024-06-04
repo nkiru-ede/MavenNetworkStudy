@@ -87,9 +87,9 @@ def process_merged_G(path):
     plt.figure(figsize=(10, 6))
     grouped_df.plot(marker='o', linestyle='-')
 
-    plt.xlabel('Year')
+    plt.xlabel('G Release Year')
     plt.ylabel('G Count')
-    plt.title('Growth of G over the years')
+    plt.title('Count of G release across the years')
     plt.grid(True)
     plt.show()
 
