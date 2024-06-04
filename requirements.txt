@@ -1,9 +1,6 @@
 pandas
 python-dateutil
-<<<<<<< HEAD
-=======
-networkx
->>>>>>> b0ddde42d98d776fd422e5586ed04a218c541fe2
+
 
 
 
