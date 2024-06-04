@@ -1,9 +1,11 @@
 import pandas as pd
 import os
+import matplotlib.pyplot as plt
+
 
 def process_merged_G(path):
     if os.path.isdir(path):
-        csv_files = [os.path.join(path, file_name) for file_name in os.listdir(path) if file_name.endswith('.csv')]
+        csv_files = [os.path.join(path, file_name) for file_name in os.listdir(path) if file_name.endswith('.csv') and file_name.startswith('GAV')]
     elif os.path.isfile(path):
         csv_files = [path]
     else:
@@ -26,18 +28,24 @@ def process_merged_G(path):
         df.columns = df.iloc[0]
         df = df[1:]
         df = df.rename_axis(None, axis=1)
+        
+        # Check if the expected columns are present
+        expected_columns = ['Artifact', 'Dependencies', 'artifact_release_date', 'dependency_release_date']
+        if not all(col in df.columns for col in expected_columns):
+            raise ValueError("CSV file does not contain the required columns.")
 
-        new_df = df[['Artifact', 'Dependencies', 'Upstream Release Date', 'Dependency Release Date']].copy()
+        new_df = df[['Artifact', 'Dependencies', 'artifact_release_date', 'dependency_release_date']].copy()
 
-        new_df[['Source_Group_Id', 'Source_Artifact_Id', 'Source_Version']] = df['Artifact'].str.split(':', expand=True)
-        new_df[['Target_Group_Id', 'Target_Artifact_Id', 'Target_Version']] = df['Dependencies'].str.split(':', expand=True)
+        new_df[['Target_Group_Id', 'Target_Artifact_Id', 'Target_Version']] = df['Artifact'].str.split(':', expand=True)
+        new_df[['Source_Group_Id', 'Source_Artifact_Id', 'Source_Version']] = df['Dependencies'].str.split(':', expand=True)
+
 
         df.drop(columns=['Artifact', 'Dependencies'], inplace=True)
 
-        df = df.rename(columns={'Upstream Release Date': 'Source Release Date', 'Dependency Release Date': 'Target Release Date'})
+        df = df.rename(columns={'artifact_release_date': 'Target Release Date', 'dependency_release_date': 'Source Release Date'})
 
-        df['Source Release Year'] = df['Source Release Date'].str[:4]
         df['Target Release Year'] = df['Target Release Date'].str[:4]
+        df['Source Release Year'] = df['Source Release Date'].str[:4]
 
         df = pd.concat([df, new_df], axis=1)
 
@@ -68,6 +76,24 @@ def process_merged_G(path):
         dfs.append(merged_G_df)
 
     merged_G_df = pd.concat(dfs)
+    
+    merged_G_df = merged_G_df.drop(columns=['Source Release Date', 'Target Release Date'], errors='ignore')
+
+    
+
+    grouped_df = merged_G_df.groupby('Source Release Year')['Source_Group_Id'].count()
+
+
+    plt.figure(figsize=(10, 6))
+    grouped_df.plot(marker='o', linestyle='-')
+
+    plt.xlabel('Year')
+    plt.ylabel('G Count')
+    plt.title('Growth of G over the years')
+    plt.grid(True)
+    plt.show()
+
+
     return merged_G_df
 
 if __name__ == "__main__":
