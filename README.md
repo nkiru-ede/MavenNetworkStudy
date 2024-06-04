@@ -38,9 +38,117 @@ TODO: Version of Python required, etc. Should switch later to Docker.
 | Notes | TODO |
 | Tests | `tests/test_aggregate_g.py`, `tests/test_aggregate_ga.py` |
 
-
-[experiments](experiments.md)
-
+### Running the Project on a Windows Machine
 
 
 
+1. **Ensure Python is installed**:
+   - If not installed, download and install Python from [python.org](https://www.python.org/downloads/).
+
+
+2. **Open Command Prompt**:
+   - Press `Win + R`, type `cmd`, and press `Enter`.
+
+3. - Navigate to the directory where you want to clone the repository and execute command: 
+
+```sh
+git clone https://github.com/nkiru-ede/MavenNetworkStudy.git
+```
+
+
+4. Navigate to the repository directory:
+   ```sh
+   cd MavenNetworkStudy\Project
+   ```
+
+5. Install dependencies:
+
+```sh
+pip install -r requirements.txt
+
+or 
+
+pip3 install -r requirements.txt
+
+```
+
+6. Run the python scripts
+
+
+```sh
+python aggregate_ga.py
+
+```
+
+```sh
+python aggregate_g.py
+
+```
+
+7. Run tests
+
+```sh
+python test_aggregate_ga.py
+
+```
+```sh
+python test_aggregate_g.py
+
+```
+
+
+
+### Running the Project on a MacOS
+
+1. MacOS usually comes with a Python pre-installed, you can check installed version by executing below command:
+
+```sh
+python --version
+```
+
+2. - Navigate to the directory where you want to clone the repository and execute command: 
+
+```sh
+git clone https://github.com/nkiru-ede/MavenNetworkStudy.git
+```
+
+
+3. Navigate to the repository directory:
+   ```sh
+   cd MavenNetworkStudy\Project
+   ```
+
+4. Install dependencies:
+
+```sh
+pip install -r requirements.txt
+
+or 
+
+pip3 install -r requirements.txt
+
+```
+
+5. Run the python scripts
+
+
+```sh
+python aggregate_ga.py
+
+```
+
+```sh
+python aggregate_g.py
+
+```
+
+6. Run tests
+
+```sh
+python test_aggregate_ga.py
+
+```
+```sh
+python test_aggregate_g.py
+
+```
