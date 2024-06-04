@@ -142,7 +142,24 @@ python aggregate_g.py
 
 ```
 
-6. Run tests
+6. Generate charts 
+
+```sh
+python chart_Ggav.py
+
+```
+
+```sh
+python chart_GA.py
+
+```
+
+```sh
+python chart_G.py
+
+```
+
+7. Run tests
 
 ```sh
 python test_aggregate_ga.py
