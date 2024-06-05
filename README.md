@@ -18,8 +18,7 @@ Steps to replicate:
 ## Reproducing Results
 
 ### Prerequisites
-
-TODO: Version of Python required, etc. Should switch later to Docker.
+Use Python version 3.*, tested with 3.12.2
 
 ### Steps
 
