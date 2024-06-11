@@ -26,7 +26,7 @@ Use Python version 3.*, tested with 3.12.2
 
 | Input | Output |
 | --- | --- |
-| [TODO: Zenodo dataset](https://ieeexplore.ieee.org/iel7/8804710/8816727/08816814.pdf) | `data/GAV/GAV1.csv`, `data/GAV/GAV2.csv`, ..., `data/GAV/GAV73.csv` |
+| [https://zenodo.org/records/1489120/files/maven-data.csv.tar.xz?download=1](https://zenodo.org/records/1489120/files/maven-data.csv.tar.xz?download=1)| `data/GAV/GAV1.csv`, `data/GAV/GAV2.csv`, ..., `data/GAV/GAV73.csv` |
 | Notes | Files are in TSV format |
 
 #### Step 2: Aggregated GAV graph to GA and G graphs as described in paper section TODO
