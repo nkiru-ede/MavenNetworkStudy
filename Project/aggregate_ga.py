@@ -2,7 +2,6 @@ import pandas as pd
 import os
 import matplotlib.pyplot as plt
 
-
 def process_merged_GA(path):
     if os.path.isdir(path):
         csv_files = [os.path.join(path, file_name) for file_name in os.listdir(path) if file_name.endswith('.csv') and file_name.startswith('GAV')]
@@ -86,8 +85,11 @@ def process_merged_GA(path):
     plt.title('Count of GA release across the years')
     plt.grid(True)
     plt.show()
-    
+
     merged_GA_df = merged_GA_df.drop(columns=['Source Release Date', 'Target Release Date'], errors='ignore')
+
+    current_dir = os.path.dirname(os.path.abspath(__file__))
+    merged_GA_df.to_csv(os.path.join(current_dir, "GA.csv"), index=False)
 
     return merged_GA_df
 
