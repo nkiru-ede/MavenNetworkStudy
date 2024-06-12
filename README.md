@@ -38,7 +38,7 @@ Note: To install dependencies on MacOs, you may need to use 'brew' command
 
 | Script | Input | Output |
 | --- | --- | --- |
-| `Project/aggregate_ga.py`, `Project/aggregate_g.py` |`Project/data/GAV` |
+| `Project/aggregate_ga.py`, `Project/aggregate_g.py` |`Project/data/GAV` |`Project/data/GA.csv`, `Project/data/G.csv`, `Project/plot`
 | Tests | TODO|
 
 ### Running the Project on a Windows Machine
