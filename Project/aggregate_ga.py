@@ -84,12 +84,18 @@ def process_merged_GA(path):
     plt.ylabel('GA Count')
     plt.title('Count of GA release across the years')
     plt.grid(True)
-    plt.show()
+
+    # Save the plot to a file
+    plot_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plots")
+    os.makedirs(plot_dir, exist_ok=True)
+    plot_file_path = os.path.join(plot_dir, "GA_Growth.png")
+    plt.savefig(plot_file_path)
+    #plt.show()
 
     merged_GA_df = merged_GA_df.drop(columns=['Source Release Date', 'Target Release Date'], errors='ignore')
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    merged_GA_df.to_csv(os.path.join(current_dir, "GA.csv"), index=False)
+    merged_GA_df.to_csv(os.path.join(current_dir, "data", "GA.csv"), index=False)
 
     return merged_GA_df
 
@@ -100,3 +106,5 @@ if __name__ == "__main__":
     print("GA DataFrame:")
     print(merged_GA_df)
     print(len(merged_GA_df))
+    print("GA saved to Project/data/GA.csv")
+    print("GA Growth chart saved to Project/plot")

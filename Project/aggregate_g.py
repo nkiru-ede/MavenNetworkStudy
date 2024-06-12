@@ -73,7 +73,7 @@ def process_merged_G(path):
     merged_G_df = merged_G_df.drop(columns=['Source Release Date', 'Target Release Date'], errors='ignore')
 
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    merged_G_df.to_csv(os.path.join(current_dir, "G.csv"), index=False)
+    merged_G_df.to_csv(os.path.join(current_dir, "data","G.csv"), index=False)
 
     grouped_df = merged_G_df.groupby('Source Release Year')['Source_Group_Id'].count()
 
@@ -84,7 +84,16 @@ def process_merged_G(path):
     plt.ylabel('G Count')
     plt.title('Count of G release across the years')
     plt.grid(True)
+    #plt.show()
+    
+    # Save the plot to a file
+    plot_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plots")
+    os.makedirs(plot_dir, exist_ok=True)
+    plot_file_path = os.path.join(plot_dir, "G_Growth.png")
+    plt.savefig(plot_file_path)
     plt.show()
+
+
 
     return merged_G_df
 
@@ -95,3 +104,7 @@ if __name__ == "__main__":
     print("G DataFrame:")
     print(merged_G_df)
     print(len(merged_G_df))
+    
+  
+    print("G saved to Project/data/G.csv")
+    print("G Growth chart saved to Project/plot")
