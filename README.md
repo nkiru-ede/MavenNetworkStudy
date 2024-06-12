@@ -18,7 +18,12 @@ Steps to replicate:
 ## Reproducing Results
 
 ### Prerequisites
+
 Use Python version 3.*, tested with 3.12.2
+
+Install git (any version)
+
+Note: To install dependencies on MacOs, you may need to use 'brew' command
 
 ### Steps
 
@@ -26,16 +31,15 @@ Use Python version 3.*, tested with 3.12.2
 
 | Input | Output |
 | --- | --- |
-| [https://zenodo.org/records/1489120/files/maven-data.csv.tar.xz?download=1](https://zenodo.org/records/1489120/files/maven-data.csv.tar.xz?download=1)| `data/GAV/GAV1.csv`, `data/GAV/GAV2.csv`, ..., `data/GAV/GAV73.csv` |
-| Notes | Files are in TSV format |
+| [TODO: Zenodo dataset](https://ieeexplore.ieee.org/iel7/8804710/8816727/08816814.pdf) | `Project/data/GAV` |
+| Script | Project/datawrang.py|
 
 #### Step 2: Aggregated GAV graph to GA and G graphs as described in paper section TODO
 
 | Script | Input | Output |
 | --- | --- | --- |
-| `Project/aggregate_ga.py`, `Project/aggregate_g.py` | `data/GAV/GAV1.csv`, `data/GAV/GAV2.csv`, ..., `data/GAV/GAV73.csv`, `data/test_data` | `data/GA.zip`, `data/G.tsv` |
-| Notes | TODO |
-| Tests | `tests/test_aggregate_g.py`, `tests/test_aggregate_ga.py` |
+| `Project/aggregate_ga.py`, `Project/aggregate_g.py` |`Project/data/GAV` |
+| Tests | TODO|
 
 ### Running the Project on a Windows Machine
 
