@@ -13,9 +13,17 @@ new_dataset = pd.read_csv(release_file, delimiter=',')
 
 new_df.columns = new_df.columns.str.replace('"', '').str.strip()
 
+# Clean column names and select required columns in new_dataset
+print("Columns in new_dataset before cleaning:")
+print(new_dataset.columns)
+
 
 new_dataset.columns = new_dataset.columns.str.replace('"', '').str.strip()
 new_dataset = new_dataset[['artifact', 'release']]  # Select only required columns
+
+
+print("Columns in new_dataset after cleaning:")
+print(new_dataset.columns)
 
 new_df = new_df.merge(new_dataset, how='left', left_on='source', right_on='artifact')
 new_df.rename(columns={'release': 'dependency_release_date'}, inplace=True)
