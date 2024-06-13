@@ -1,6 +1,7 @@
 import pandas as pd
 import os
 import matplotlib.pyplot as plt
+from matplotlib.ticker import ScalarFormatter
 
 def process_merged_GA(path):
     if os.path.isdir(path):
@@ -44,6 +45,12 @@ def process_merged_GA(path):
 
         df['Target Release Year'] = df['Target Release Date'].str[:4]
         df['Source Release Year'] = df['Source Release Date'].str[:4]
+        
+        df = df[df['Target Release Year'].str.isnumeric()]
+        df = df[df['Source Release Year'].str.isnumeric()]
+
+        df['Target Release Year'] = df['Target Release Year'].astype(int)
+        df['Source Release Year'] = df['Source Release Year'].astype(int)
 
         df = pd.concat([df, new_df], axis=1)
 
@@ -75,7 +82,7 @@ def process_merged_GA(path):
 
     merged_GA_df = pd.concat(dfs)
 
-    grouped_df = merged_GA_df.groupby('Source Release Year')['Source_Group_Id'].count()
+    grouped_df = merged_GA_df.groupby('Source Release Year')['Source_Artifact_Id'].count()
 
     plt.figure(figsize=(10, 6))
     grouped_df.plot(marker='o', linestyle='-')
@@ -84,6 +91,13 @@ def process_merged_GA(path):
     plt.ylabel('GA Count')
     plt.title('Count of GA release across the years')
     plt.grid(True)
+    
+    plt.gca().yaxis.set_major_formatter(ScalarFormatter(useOffset=False))
+    plt.ticklabel_format(style='plain', axis='y')
+    
+    plt.gca().xaxis.set_major_formatter(ScalarFormatter())
+    plt.gca().xaxis.set_major_locator(plt.MaxNLocator(integer=True))
+
 
     # Save the plot to a file
     plot_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plots")

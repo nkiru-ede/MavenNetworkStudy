@@ -1,6 +1,8 @@
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.ticker import ScalarFormatter
+
 
 def process_merged_G(path):
     if os.path.isdir(path):
@@ -41,6 +43,12 @@ def process_merged_G(path):
 
         df['Target Release Year'] = df['Target Release Date'].str[:4]
         df['Source Release Year'] = df['Source Release Date'].str[:4]
+        
+        df = df[df['Target Release Year'].str.isnumeric()]
+        df = df[df['Source Release Year'].str.isnumeric()]
+
+        df['Target Release Year'] = df['Target Release Year'].astype(int)
+        df['Source Release Year'] = df['Source Release Year'].astype(int)
 
         df = pd.concat([df, new_df], axis=1)
 
@@ -85,6 +93,12 @@ def process_merged_G(path):
     plt.title('Count of G release across the years')
     plt.grid(True)
     #plt.show()
+    
+    plt.gca().yaxis.set_major_formatter(ScalarFormatter(useOffset=False))
+    plt.ticklabel_format(style='plain', axis='y')
+    
+    plt.gca().xaxis.set_major_formatter(ScalarFormatter())
+    plt.gca().xaxis.set_major_locator(plt.MaxNLocator(integer=True))
     
     # Save the plot to a file
     plot_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plots")
