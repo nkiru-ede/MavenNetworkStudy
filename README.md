@@ -20,6 +20,12 @@ Use Python version 3.*, tested with 3.12.2
 
 Install git (any version)
 
+Run the below commands to install git lfs and pull datasets links_all and release_all 
+```sh
+git lfs install
+git lfs pull
+```
+
 Note: To install dependencies on MacOs, you may need to use 'brew' command
 
 ### Steps
