@@ -11,6 +11,9 @@ release_file = os.path.join(data_folder, 'release_all.csv')
 new_df = pd.read_csv(links_file, delimiter=',')
 new_dataset = pd.read_csv(release_file, delimiter=',')
 
+new_df.columns = new_df.columns.str.replace('"', '').str.strip()
+
+
 new_dataset.columns = new_dataset.columns.str.replace('"', '').str.strip()
 
 new_df = new_df.merge(new_dataset[['artifact', 'release']], how='left', left_on='source', right_on='artifact')
@@ -69,3 +72,4 @@ plt.savefig(plot_file_path)
 plt.close()
 
 print(f"Plot saved to {plot_file_path}")
+
