@@ -7,44 +7,20 @@ data_folder = './data'
 links_file = os.path.join(data_folder, 'links_all.csv')
 release_file = os.path.join(data_folder, 'release_all.csv')
 
-# Read the datasets
+
 new_df = pd.read_csv(links_file, delimiter=',')
 new_dataset = pd.read_csv(release_file, delimiter=',')
 
-# Print columns and first few rows to debug
-print("Columns in new_dataset before cleaning:")
-print(new_dataset.columns)
-print("First few rows of new_dataset:")
-print(new_dataset.head())
-
-print("Columns in new_df before cleaning:")
-print(new_df.columns)
-print("First few rows of new_df:")
-print(new_df.head())
-
-# Clean column names
 new_df.columns = new_df.columns.str.replace('"', '').str.strip()
+
+
 new_dataset.columns = new_dataset.columns.str.replace('"', '').str.strip()
 
-# Check if required columns exist
-required_columns = ['artifact', 'release']
-missing_columns = [col for col in required_columns if col not in new_dataset.columns]
-if missing_columns:
-    print(f"Missing columns in new_dataset: {missing_columns}")
-    exit(1)
-
-# Select only required columns
-new_dataset = new_dataset[['artifact', 'release']]
-
-print("Columns in new_dataset after cleaning:")
-print(new_dataset.columns)
-
-# Continue with merging and processing
-new_df = new_df.merge(new_dataset, how='left', left_on='source', right_on='artifact')
+new_df = new_df.merge(new_dataset[['artifact', 'release']], how='left', left_on='source', right_on='artifact')
 new_df.rename(columns={'release': 'dependency_release_date'}, inplace=True)
 new_df.drop(columns=['artifact'], inplace=True)
 
-new_df = new_df.merge(new_dataset, how='left', left_on='target', right_on='artifact')
+new_df = new_df.merge(new_dataset[['artifact', 'release']], how='left', left_on='target', right_on='artifact')
 new_df.rename(columns={'release': 'artifact_release_date'}, inplace=True)
 new_df.drop(columns=['artifact'], inplace=True)
 
@@ -53,6 +29,7 @@ new_df['artifact_release_date'] = new_df['artifact_release_date'].str.replace(r'
 
 new_df['dependency_release_date'] = pd.to_datetime(new_df['dependency_release_date'], format='ISO8601', errors='coerce')
 new_df['artifact_release_date'] = pd.to_datetime(new_df['artifact_release_date'], format='ISO8601', errors='coerce')
+
 
 filtered_df = new_df[new_df['dependency_release_date'] >= new_df['artifact_release_date']]
 filtered_df = filtered_df.rename(columns={'source': 'Dependencies', 'target': 'Artifact'})
@@ -76,8 +53,10 @@ os.makedirs(plot_folder, exist_ok=True)
 filtered_df['dependency_release_year'] = filtered_df['dependency_release_date'].dt.year
 yearly_counts = filtered_df.groupby('dependency_release_year').size()
 
+
 plt.figure(figsize=(10, 6))
 yearly_counts.plot(marker='o', linestyle='-')
+
 
 plt.xlabel('GAV Release Year')
 plt.ylabel('GAV Count')
@@ -89,6 +68,8 @@ plt.ticklabel_format(style='plain', axis='y')
 
 plot_file_path = os.path.join(plot_folder, 'GAV.png')
 plt.savefig(plot_file_path)
+
 plt.close()
 
 print(f"Plot saved to {plot_file_path}")
+
