@@ -31,8 +31,7 @@ new_df['dependency_release_date'] = pd.to_datetime(new_df['dependency_release_da
 new_df['artifact_release_date'] = pd.to_datetime(new_df['artifact_release_date'], format='ISO8601', errors='coerce')
 
 
-filtered_df = new_df[new_df['dependency_release_date'] >= new_df['artifact_release_date']]
-filtered_df = filtered_df.rename(columns={'source': 'Dependencies', 'target': 'Artifact'})
+filtered_df = new_df.rename(columns={'source': 'Dependencies', 'target': 'Artifact'})
 
 gav_folder = os.path.join(data_folder, 'GAV')
 os.makedirs(gav_folder, exist_ok=True)
