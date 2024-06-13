@@ -7,8 +7,7 @@ To illustrate the growth of Maven repository, across the years, we have included
 To get a true sense of the actual growth of the Maven repository, we look further into the aggregation of GAV that ignores version (GA) and artifact id (G) - two data sets show this - GA.tsv contains maven artifacts (without versions), their dependencies and release dates
           - G.tsv contains the maven groups (without versions and artifact id), their dependencies and release dates
 
-[Schema_G.tsv](Project/data/Schema_GA.tsv), [Schema_GA.tsv](Project/data/Schema_GA.tsv), [Schema_GAV.tsv](Projectdata/Schema_G.tsv)  - outlines the nature of all datasets
-
+[Schema_G.tsv](Project/data/Schema_GA.tsv), [Schema_GA.tsv](Project/data/Schema_GA.tsv), [Schema_GAV.tsv](Project/data/Schema_GAV.tsv)  - outlines the nature of all datasets
 
 
 Steps to replicate:
