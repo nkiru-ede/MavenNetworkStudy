@@ -3,19 +3,24 @@ import os
 import matplotlib.pyplot as plt
 from matplotlib.ticker import ScalarFormatter
 
+# Define data folder and file paths
 data_folder = './data'
 links_file = os.path.join(data_folder, 'links_all.csv')
 release_file = os.path.join(data_folder, 'release_all.csv')
 
-
+# Read CSV files
 new_df = pd.read_csv(links_file, delimiter=',')
 new_dataset = pd.read_csv(release_file, delimiter=',')
 
+# Clean column names
 new_df.columns = new_df.columns.str.replace('"', '').str.strip()
-
-
 new_dataset.columns = new_dataset.columns.str.replace('"', '').str.strip()
 
+# Check if required columns exist
+if 'artifact' not in new_dataset.columns or 'release' not in new_dataset.columns:
+    raise KeyError("Required columns 'artifact' and 'release' are not found in 'release_all.csv'")
+
+# Merge dataframes
 new_df = new_df.merge(new_dataset[['artifact', 'release']], how='left', left_on='source', right_on='artifact')
 new_df.rename(columns={'release': 'dependency_release_date'}, inplace=True)
 new_df.drop(columns=['artifact'], inplace=True)
@@ -24,16 +29,19 @@ new_df = new_df.merge(new_dataset[['artifact', 'release']], how='left', left_on=
 new_df.rename(columns={'release': 'artifact_release_date'}, inplace=True)
 new_df.drop(columns=['artifact'], inplace=True)
 
+# Clean date columns
 new_df['dependency_release_date'] = new_df['dependency_release_date'].str.replace(r'\[GMT\]', '', regex=True)
 new_df['artifact_release_date'] = new_df['artifact_release_date'].str.replace(r'\[GMT\]', '', regex=True)
 
+# Convert to datetime
 new_df['dependency_release_date'] = pd.to_datetime(new_df['dependency_release_date'], format='ISO8601', errors='coerce')
 new_df['artifact_release_date'] = pd.to_datetime(new_df['artifact_release_date'], format='ISO8601', errors='coerce')
 
-
+# Filter dataframe
 filtered_df = new_df[new_df['dependency_release_date'] >= new_df['artifact_release_date']]
 filtered_df = filtered_df.rename(columns={'source': 'Dependencies', 'target': 'Artifact'})
 
+# Save filtered data in chunks
 gav_folder = os.path.join(data_folder, 'GAV')
 os.makedirs(gav_folder, exist_ok=True)
 
@@ -47,16 +55,15 @@ for i in range(num_chunks):
 
 print("Files saved to Project/data/GAV")
 
+# Create and save plot
 plot_folder = os.path.join(os.getcwd(), 'plots')
 os.makedirs(plot_folder, exist_ok=True)
 
 filtered_df['dependency_release_year'] = filtered_df['dependency_release_date'].dt.year
 yearly_counts = filtered_df.groupby('dependency_release_year').size()
 
-
 plt.figure(figsize=(10, 6))
 yearly_counts.plot(marker='o', linestyle='-')
-
 
 plt.xlabel('GAV Release Year')
 plt.ylabel('GAV Count')
@@ -68,8 +75,6 @@ plt.ticklabel_format(style='plain', axis='y')
 
 plot_file_path = os.path.join(plot_folder, 'GAV.png')
 plt.savefig(plot_file_path)
-
 plt.close()
 
 print(f"Plot saved to {plot_file_path}")
-
