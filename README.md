@@ -82,25 +82,21 @@ pip3 install -r requirements.txt
 
 
 ```sh
+python datawrang.py
 python aggregate_ga.py
-
-```
-
-```sh
 python aggregate_g.py
 
 ```
+
 
 7. Run tests
 
 ```sh
 python test_aggregate_ga.py
-
-```
-```sh
 python test_aggregate_g.py
 
 ```
+
 
 
 
@@ -139,39 +135,12 @@ pip3 install -r requirements.txt
 
 
 ```sh
+python datawrang.py
 python aggregate_ga.py
-
-```
-
-```sh
 python aggregate_g.py
 
 ```
 
-6. Generate charts 
 
-```sh
-python chart_Ggav.py
 
-```
 
-```sh
-python chart_GA.py
-
-```
-
-```sh
-python chart_G.py
-
-```
-
-7. Run tests
-
-```sh
-python test_aggregate_ga.py
-
-```
-```sh
-python test_aggregate_g.py
-
-```
