@@ -4,10 +4,10 @@ import pandas as pd
 from unittest.mock import patch
 import sys
 
-
+# Add the parent directory of the 'test' folder to the Python path
 sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 
-
+# Now you can import process_merged_GA from aggregate_ga
 from Project.aggregate_ga import process_merged_GA
 
 class TestGroupingAndAggregation(unittest.TestCase):
@@ -26,7 +26,7 @@ group3:artifact2:1.0,group2:artifact2:1.0,2022-01-01,2022-01-01
         with open(self.csv_file_path, "w") as f:
             f.write(test_data)
         
-        
+        # Create the 'data' directory if it doesn't exist
         os.makedirs(os.path.join(current_dir, "..", "project", "data"), exist_ok=True)
         
     def tearDown(self):
@@ -70,6 +70,10 @@ group3:artifact2:1.0,group2:artifact2:1.0,2022-01-01,2022-01-01
         
         processed_df = process_merged_GA(self.csv_file_path)
         
+        # Convert the processed DataFrame's column to int32
+        processed_df['Source Release Year'] = processed_df['Source Release Year'].astype('int32')
+        processed_df['Target Release Year'] = processed_df['Target Release Year'].astype('int32')
+
         expected_num_rows = 3
         self.assertEqual(len(processed_df), expected_num_rows)
         
