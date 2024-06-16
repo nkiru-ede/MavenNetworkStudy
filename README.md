@@ -92,6 +92,7 @@ python aggregate_g.py
 7. Run tests
 
 ```sh
+cd test
 python test_aggregate_ga.py
 python test_aggregate_g.py
 
@@ -140,7 +141,5 @@ python aggregate_ga.py
 python aggregate_g.py
 
 ```
-
-
 
 
