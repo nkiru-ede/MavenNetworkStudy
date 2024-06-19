@@ -30,6 +30,10 @@ new_df['artifact_release_date'] = new_df['artifact_release_date'].str.replace(r'
 new_df['dependency_release_date'] = pd.to_datetime(new_df['dependency_release_date'], format='ISO8601', errors='coerce')
 new_df['artifact_release_date'] = pd.to_datetime(new_df['artifact_release_date'], format='ISO8601', errors='coerce')
 
+new_dataset['release'] = new_dataset['release'].str.replace(r'\[GMT\]', '', regex=True)
+
+new_dataset['release'] = pd.to_datetime(new_dataset['release'], format='ISO8601', errors='coerce')
+
 
 filtered_df = new_df.rename(columns={'source': 'Dependencies', 'target': 'Artifact'})
 
@@ -53,22 +57,47 @@ filtered_df['dependency_release_year'] = filtered_df['dependency_release_date'].
 yearly_counts = filtered_df.groupby('dependency_release_year').size()
 
 
+new_dataset['release'] = new_dataset['release'].dt.year
+yearly_counts_art = new_dataset.groupby('release').size()
+
+
 plt.figure(figsize=(10, 6))
-yearly_counts.plot(marker='o', linestyle='-')
-
-
+yearly_counts_art.plot(marker='o', linestyle='-')
 plt.xlabel('GAV Release Year')
 plt.ylabel('GAV Count')
 plt.title('Count of GAV release across the years')
 plt.grid(True)
-
 plt.gca().yaxis.set_major_formatter(ScalarFormatter(useOffset=False))
 plt.ticklabel_format(style='plain', axis='y')
-
 plot_file_path = os.path.join(plot_folder, 'GAV.png')
 plt.savefig(plot_file_path)
 
+# Save the yearly counts as CSV files
+table_file_path_dep = os.path.join(plot_folder, 'GAV.csv')
+yearly_counts_art.to_csv(table_file_path_dep, header=['Count'], index_label='Artifact Release Year')
+
 plt.close()
 
-print(f"Plot saved to {plot_file_path}")
 
+
+
+
+plt.figure(figsize=(10, 6))
+yearly_counts.plot(marker='o', linestyle='-')
+plt.xlabel('Dependency Release Year')
+plt.ylabel('Dependency Count')
+plt.title('Count of Dependencies Released across the Years')
+plt.grid(True)
+plt.gca().yaxis.set_major_formatter(ScalarFormatter(useOffset=False))
+plt.ticklabel_format(style='plain', axis='y')
+plot_file_path_art = os.path.join(plot_folder, 'dependencies_GAV.png')
+plt.savefig(plot_file_path_art)
+plt.close()
+
+
+
+table_file_path_art = os.path.join(plot_folder, 'Dependency_counts.csv')
+yearly_counts.to_csv(table_file_path_art, header=['Count'], index_label='Dependency Release Year')
+
+
+print(f"Plot saved to {plot_file_path}")
