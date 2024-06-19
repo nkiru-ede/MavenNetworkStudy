@@ -82,7 +82,7 @@ def process_merged_GA(path):
 
     merged_GA_df = pd.concat(dfs)
 
-    grouped_df = merged_GA_df.groupby('Source Release Year')['Source_Artifact_Id'].count()
+    grouped_df = merged_GA_df.groupby('Target Release Year')['Target_Artifact_Id'].count()
 
     plt.figure(figsize=(10, 6))
     grouped_df.plot(marker='o', linestyle='-')
@@ -105,6 +105,40 @@ def process_merged_GA(path):
     plot_file_path = os.path.join(plot_dir, "GA_Growth.png")
     plt.savefig(plot_file_path)
     #plt.show()
+    
+    # Save the yearly counts as CSV files
+    table_file_path_dep = os.path.join(plot_dir, 'GA_Growth.csv')
+    grouped_df.to_csv(table_file_path_dep, header=['Count'], index_label='GA Release Year')
+    
+    
+    grouped_dfs = merged_GA_df.groupby('Source Release Year')['Source_Artifact_Id'].count()
+
+    plt.figure(figsize=(10, 6))
+    grouped_dfs.plot(marker='o', linestyle='-')
+    
+    
+    plt.xlabel('Dependency Release Year(GA)')
+    plt.ylabel('Dependency Count(GA)')
+    plt.title('Count of dependencies release across the years (GA)')
+    plt.grid(True)
+    
+    plt.gca().yaxis.set_major_formatter(ScalarFormatter(useOffset=False))
+    plt.ticklabel_format(style='plain', axis='y')
+    
+    plt.gca().xaxis.set_major_formatter(ScalarFormatter())
+    plt.gca().xaxis.set_major_locator(plt.MaxNLocator(integer=True))
+    
+    # Save the plot to a file
+    plot_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "plots")
+    os.makedirs(plot_dir, exist_ok=True)
+    plot_file_path = os.path.join(plot_dir, "Dependencies_Growth(GA).png")
+    plt.savefig(plot_file_path)
+    #plt.show()
+    
+    
+    # Save the yearly counts as CSV files
+    table_file_path_dep = os.path.join(plot_dir, 'Dependencies_Growth(GA).csv')
+    grouped_dfs.to_csv(table_file_path_dep, header=['Count'], index_label='Dependency(GA) Release Year')
 
     merged_GA_df = merged_GA_df.drop(columns=['Source Release Date', 'Target Release Date'], errors='ignore')
 
