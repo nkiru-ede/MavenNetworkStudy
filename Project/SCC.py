@@ -1,66 +1,51 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Jun 23 14:36:21 2024
-
-@author: edenk
-"""
-
 import pandas as pd
 import os
 import networkx as nx
-import matplotlib.pyplot as plt
+import json
 
-def compute_sccs(data_folder='./data'):
-    links_file = os.path.join(data_folder, 'links_all.csv')
-    release_file = os.path.join(data_folder, 'release_all.csv')
+data_folder = './data'
+cleaned_data_file = os.path.join(data_folder, 'cleaned_data.csv')
+new_df_cleaned = pd.read_csv(cleaned_data_file)
 
-    new_df = pd.read_csv(links_file, delimiter=',')
-    new_dataset = pd.read_csv(release_file, delimiter=',')
+def df_to_graph(df):
+    graph = nx.DiGraph()
+    for _, row in df.iterrows():
+        graph.add_edge(row['source'], row['target'])
+    return graph
 
-    new_df.columns = new_df.columns.str.replace('"', '').str.strip()
-    new_dataset.columns = new_dataset.columns.str.replace('"', '').str.strip()
+dag = df_to_graph(new_df_cleaned)
 
-    new_df = new_df.merge(new_dataset[['artifact', 'release']], how='left', left_on='source', right_on='artifact')
-    new_df.rename(columns={'release': 'dependency_release_date'}, inplace=True)
-    new_df.drop(columns=['artifact'], inplace=True)
+def collapse_sccs(graph):
+    sccs = list(nx.strongly_connected_components(graph))
+    scc_map = {}
+    condensed_graph = nx.DiGraph()
 
-    new_df = new_df.merge(new_dataset[['artifact', 'release']], how='left', left_on='target', right_on='artifact')
-    new_df.rename(columns={'release': 'artifact_release_date'}, inplace=True)
-    new_df.drop(columns=['artifact'], inplace=True)
+    for scc in sccs:
+        if len(scc) > 1:
+            super_node = frozenset(scc)
+            for node in scc:
+                scc_map[node] = super_node
+            condensed_graph.add_node(super_node)
+        else:
+            node = next(iter(scc))
+            scc_map[node] = node
+            condensed_graph.add_node(node)
 
-    new_df['dependency_release_date'] = new_df['dependency_release_date'].str.replace(r'\[GMT\]', '', regex=True)
-    new_df['artifact_release_date'] = new_df['artifact_release_date'].str.replace(r'\[GMT\]', '', regex=True)
+    for u, v in graph.edges():
+        u_super = scc_map[u]
+        v_super = scc_map[v]
+        if u_super != v_super:
+            condensed_graph.add_edge(u_super, v_super)
 
-    new_df['dependency_release_date'] = pd.to_datetime(new_df['dependency_release_date'], format='ISO8601', errors='coerce')
-    new_df['artifact_release_date'] = pd.to_datetime(new_df['artifact_release_date'], format='ISO8601', errors='coerce')
+    return condensed_graph, scc_map
 
-    dag = nx.DiGraph()
+condensed_dag, scc_map = collapse_sccs(dag)
 
-    for _, row in new_df.iterrows():
-        source = row['source']
-        target = row['target']
+print("Number of SCCs:", len(scc_map))
+print("Condensed graph nodes:", len(condensed_dag.nodes))
+print("Condensed graph edges:", len(condensed_dag.edges))
 
-        if source != target:
-            dag.add_edge(source, target)
-
-    sccs = list(nx.strongly_connected_components(dag))
-    scc_sizes = [len(scc) for scc in sccs]
-    max_scc_size = max(scc_sizes) if scc_sizes else 0
-    max_sccs = [scc for scc in sccs if len(scc) == max_scc_size]
-
-    plt.hist(scc_sizes, bins=range(1, max(scc_sizes, default=0) + 2), edgecolor='black')
-    plt.xlabel('Size of SCC')
-    plt.ylabel('Number of SCCs')
-    plt.title('Histogram of Strongly Connected Components Sizes')
-    plt.show()
-
-    return {
-        "sccs": sccs,
-        "scc_sizes": scc_sizes,
-        "max_scc_size": max_scc_size,
-        "max_sccs": max_sccs
-    }
-
-if __name__ == "__main__":
-    data_folder = './data'
-    compute_sccs(data_folder)
+# Save the condensed graph
+condensed_dag_data = nx.node_link_data(condensed_dag)
+with open(os.path.join(data_folder, 'condensed_dag.json'), 'w') as f:
+    json.dump(condensed_dag_data, f)
