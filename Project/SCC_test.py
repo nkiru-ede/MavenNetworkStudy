@@ -1,6 +1,6 @@
 import unittest
 import pandas as pd
-from SCC import compute_sccs
+from SCC import collapse_sccs
 
 class TestComputeSCCs(unittest.TestCase):
 
@@ -26,7 +26,7 @@ class TestComputeSCCs(unittest.TestCase):
         links_df = pd.read_csv(pd.compat.StringIO(links_data), delimiter=',')
         release_df = pd.read_csv(pd.compat.StringIO(release_data), delimiter=',')
 
-        result = compute_sccs(links_df, release_df)
+        result = collapse_sccs(links_df, release_df)
         
         # Expected strongly connected components
         expected_sccs = [{'A', 'B', 'C'}, {'D', 'E', 'F'}, {'G'}, {'H'}]
