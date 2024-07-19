@@ -48,7 +48,9 @@ Note: To install dependencies on MacOs, you may need to use 'brew' command
 #### Step 3: Compute Transitive Closures for GAV/GA/G
 | Script | Input | Output |
 | --- | --- | --- |
-| Transitive_deps.py |  [TODO: Zenodo dataset](https://ieeexplore.ieee.org/iel7/8804710/8816727/08816814.pdf) | `Project/data/transitive_dependencies`|
+| RemoveLoops_Cycles.py |  [TODO: Zenodo dataset](https://ieeexplore.ieee.org/iel7/8804710/8816727/08816814.pdf) | `Project/data/cleaned_data`|
+| SCC.py|Project/data/cleaned_data|Project/data/condensed_dag|
+| Transitive_deps.py|Project/data/condensed_dag|Project/data/transitive_dependencies
 | `datawrang_trans.py` | `Project/data/transitive_dependencies` | `Project/data/GAV`|
 | `Project/aggregate_ga.py`, `Project/aggregate_g.py` | Project/data/GAV| `Project/data/GA.csv`, `Project/data/G.csv`, `Project/plot`|
 
@@ -151,6 +153,8 @@ python aggregate_ga.py
 python aggregate_g.py
 
 ```
+
+
 
 
 
