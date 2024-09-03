@@ -1,6 +1,7 @@
 pandas
 python-dateutil
 matplotlib
+seaborn
 
 
 
