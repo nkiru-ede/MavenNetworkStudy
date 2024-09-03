@@ -9,7 +9,6 @@ class TestComputeStatistics(unittest.TestCase):
         cls.all_ga_file_path = 'C:/Users/edenk/.spyder-py3/data/release_allTest.csv'
         cls.top_100_file_path = 'C:/Users/edenk/.spyder-py3/data/GA_test.csv'
         
-        # Load and process test data
         cls.df_all_ga, cls.df_top_100 = load_and_process_data(cls.all_ga_file_path, cls.top_100_file_path)
 
     def test_compute_statistics(self):
@@ -17,25 +16,27 @@ class TestComputeStatistics(unittest.TestCase):
 
         # Expected results based on the test data
         expected_means_all = pd.DataFrame({
-            'release_year': [2009, 2010, 2011],
-            'mean_all': [0.125, 0.75, 0.125]
+            'release_year': [2009, 2010, 2012],
+            'mean_all': [1.00, 2.00, 0.25]
         })
         
         expected_medians_all = pd.DataFrame({
-            'release_year': [2009, 2010, 2011],
-            'median_all': [0.0, 1.0, 0.0]
+            'release_year': [2009, 2010, 2012],
+            'median_all': [1.00, 2.0, 0.0]
         })
 
         expected_means_top_100 = pd.DataFrame({
-            'release_year': [2009, 2010, 2011],
-            'mean_top_100': [0.125, 0.75, 0.125] 
+            'release_year': [2009, 2010, 2012],
+            'mean_top_100': [1.00, 2.00, 0.25] 
         })
         
         expected_medians_top_100 = pd.DataFrame({
-            'release_year': [2009, 2010, 2011],
-            'median_top_100': [0.0, 1.0, 0.0]  
+            'release_year': [2009, 2010, 2012],
+            'median_top_100': [1.00, 2.00, 0.0]  
         })
 
+        
+        # Assert the results
         try:
             pd.testing.assert_frame_equal(means_all, expected_means_all)
             pd.testing.assert_frame_equal(medians_all, expected_medians_all)

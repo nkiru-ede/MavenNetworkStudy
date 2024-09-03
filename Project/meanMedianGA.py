@@ -18,7 +18,6 @@ def load_and_process_data(all_ga_file_path, top_100_file_path):
     df_all_ga['release_year'] = pd.to_numeric(df_all_ga['release_year'], errors='coerce')
     df_all_ga = df_all_ga.dropna(subset=['release_year'])
 
-    # Process the 'Top 100 GA' dataset
     df_top_100['Artifact'] = df_top_100['Artifact'].astype(str)
     df_top_100['component'] = df_top_100['Artifact'].apply(lambda x: ':'.join(x.split(':')[:2]) if ':' in x else x)
     df_top_100['release_year'] = df_top_100['artifact_release_date'].str.split('-', n=2).str[0]
@@ -26,7 +25,6 @@ def load_and_process_data(all_ga_file_path, top_100_file_path):
     df_top_100 = df_top_100.dropna(subset=['release_year'])
 
     return df_all_ga, df_top_100
-
 
 def compute_statistics(df_all_ga, df_top_100):
     component_counts_top_100 = df_top_100.groupby(['release_year', 'component']).size().reset_index(name='count')
@@ -40,24 +38,41 @@ def compute_statistics(df_all_ga, df_top_100):
 
     all_years = df_all_ga['release_year'].unique()
     all_components = df_all_ga['component'].unique()
+
     index = pd.MultiIndex.from_product([all_years, all_components], names=['release_year', 'component'])
     df_full = pd.DataFrame(index=index).reset_index()
+
+    first_release_year = df_all_ga.groupby('component')['release_year'].min().reset_index(name='first_release_year')
 
     df_all_ga_counts = df_all_ga.groupby(['release_year', 'component']).size().reset_index(name='count')
     df_all_ga_full = pd.merge(df_full, df_all_ga_counts, on=['release_year', 'component'], how='left').fillna(0)
 
-    medians_all = df_all_ga_full.groupby('release_year')['count'].median().reset_index(name='median_all')
-    means_all = df_all_ga_full.groupby('release_year')['count'].mean().reset_index(name='mean_all')
+    df_all_ga_full_filtered = pd.merge(df_all_ga_full, first_release_year, on='component')
+    df_all_ga_full_filtered = df_all_ga_full_filtered[df_all_ga_full_filtered['first_release_year'] <= df_all_ga_full_filtered['release_year']]
 
-    all_components_top_100 = df_all_ga_top_100['component'].unique()
-    index_top_100 = pd.MultiIndex.from_product([all_years, all_components_top_100], names=['release_year', 'component'])
-    df_full_top_100 = pd.DataFrame(index=index_top_100).reset_index()
+    total_counts_all = df_all_ga_full_filtered.groupby('release_year')['count'].sum().reset_index(name='total_count_all')
+    unique_components_all = df_all_ga_full_filtered.groupby('release_year')['component'].count().reset_index(name='unique_components_all')
+    
+    means_all = pd.merge(total_counts_all, unique_components_all, on='release_year')
+    means_all['mean_all'] = means_all['total_count_all'] / means_all['unique_components_all']
+    means_all = means_all[['release_year', 'mean_all']]
+    
+    medians_all = df_all_ga_full_filtered.groupby('release_year')['count'].median().reset_index(name='median_all')
 
     df_top_100_counts = df_all_ga_top_100.groupby(['release_year', 'component']).size().reset_index(name='count')
-    df_all_ga_full_top_100 = pd.merge(df_full_top_100, df_top_100_counts, on=['release_year', 'component'], how='left').fillna(0)
+    df_all_ga_full_top_100 = pd.merge(df_full, df_top_100_counts, on=['release_year', 'component'], how='left').fillna(0)
 
-    medians_top_100 = df_all_ga_full_top_100.groupby('release_year')['count'].median().reset_index(name='median_top_100')
-    means_top_100 = df_all_ga_full_top_100.groupby('release_year')['count'].mean().reset_index(name='mean_top_100')
+    df_all_ga_full_top_100_filtered = pd.merge(df_all_ga_full_top_100, first_release_year, on='component')
+    df_all_ga_full_top_100_filtered = df_all_ga_full_top_100_filtered[df_all_ga_full_top_100_filtered['first_release_year'] <= df_all_ga_full_top_100_filtered['release_year']]
+
+    total_counts_top_100 = df_all_ga_full_top_100_filtered.groupby('release_year')['count'].sum().reset_index(name='total_count_top_100')
+    unique_components_top_100 = df_all_ga_full_top_100_filtered.groupby('release_year')['component'].count().reset_index(name='unique_components_top_100')
+    
+    means_top_100 = pd.merge(total_counts_top_100, unique_components_top_100, on='release_year')
+    means_top_100['mean_top_100'] = means_top_100['total_count_top_100'] / means_top_100['unique_components_top_100']
+    means_top_100 = means_top_100[['release_year', 'mean_top_100']]
+    
+    medians_top_100 = df_all_ga_full_top_100_filtered.groupby('release_year')['count'].median().reset_index(name='median_top_100')
 
     return means_all, medians_all, means_top_100, medians_top_100
 
@@ -72,13 +87,35 @@ def print_statistics(means_all, medians_all, means_top_100, medians_top_100):
     print(medians_top_100)
 
 
+def plot_statistics(means_all, medians_all, means_top_100, medians_top_100):
+    plt.figure(figsize=(12, 6))
+    
+    # Plot means
+    sns.lineplot(x='release_year', y='mean_all', data=means_all, label='Mean All GA', marker='o')
+    sns.lineplot(x='release_year', y='mean_top_100', data=means_top_100, label='Mean Top 100 GA', marker='o')
+    
+    # Plot medians
+    sns.lineplot(x='release_year', y='median_all', data=medians_all, label='Median All GA', marker='x')
+    sns.lineplot(x='release_year', y='median_top_100', data=medians_top_100, label='Median Top 100 GA', marker='x')
 
+    plt.title('Means and Medians of All GA and Top 100 GA over Time')
+    plt.xlabel('Release Year')
+    plt.ylabel('Value')
+    plt.legend()
+    plt.grid(True)
+    plt.tight_layout()
+    
+    # Show the plot
+    plt.show()
 if __name__ == "__main__":
-    all_ga_file_path = 'C:/Users/edenk/.spyder-py3/data/release_all.csv'  # Replace with the actual path to your 'All GA' CSV file
-    top_100_file_path = 'C:/Users/edenk/.spyder-py3/data/GA.csv'  # Replace with the actual path to your 'Top 100 GA' CSV file
+    all_ga_file_path = 'C:/Users/edenk/.spyder-py3/data/release_all.csv' 
+    top_100_file_path = 'C:/Users/edenk/.spyder-py3/data/GA.csv' 
+    
 
     df_all_ga, df_top_100 = load_and_process_data(all_ga_file_path, top_100_file_path)
     
     means_all, medians_all, means_top_100, medians_top_100 = compute_statistics(df_all_ga, df_top_100)
     
     print_statistics(means_all, medians_all, means_top_100, medians_top_100)
+    
+    plot_statistics(means_all, medians_all, means_top_100, medians_top_100)
