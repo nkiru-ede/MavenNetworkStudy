@@ -6,8 +6,8 @@ class TestComputeStatistics(unittest.TestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.all_ga_file_path = 'C:/Users/edenk/.spyder-py3/data/release_allTest.csv'
-        cls.top_100_file_path = 'C:/Users/edenk/.spyder-py3/data/GA_test.csv'
+        cls.all_ga_file_path = '/data/release_allTest.csv'
+        cls.top_100_file_path = '/data/GA_test.csv'
         
         cls.df_all_ga, cls.df_top_100 = load_and_process_data(cls.all_ga_file_path, cls.top_100_file_path)
 
