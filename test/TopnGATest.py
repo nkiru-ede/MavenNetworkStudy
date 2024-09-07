@@ -7,7 +7,7 @@ class TestArtifactProcessing(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
         # Paths to the test CSV files
-        cls.file_path = 'data/gavTest.csv'
+        cls.file_path = 'Project/data/gavTest.csv'
         cls.processed_df = process_artifacts(cls.file_path)
 
     def test_process_artifacts(self):
