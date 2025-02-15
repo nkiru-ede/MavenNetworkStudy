@@ -1,0 +1,50 @@
+
+
+#links_all
+MATCH (r:Release)-[d:dependency]->(a:Artifact)
+WITH split(r.id, ':') AS releaseParts, r.version AS releaseVersion, a.id AS artifactId, d.targetVersion AS targetVersion, d.scope AS scope
+RETURN 
+    releaseParts[0] + ":" + releaseParts[1] + ":" + releaseVersion AS source,
+    artifactId + ":" + targetVersion AS target,
+    scope AS Scope
+LIMIT 10
+
+
+
+#to csv
+
+CALL apoc.export.csv.query(
+    'MATCH (r:Release)-[d:dependency]->(a:Artifact)
+     WITH split(r.id, \':\') AS releaseParts, r.version AS releaseVersion, a.id AS artifactId, d.targetVersion AS targetVersion, d.scope AS scope
+     RETURN 
+         releaseParts[0] + \':\' + releaseParts[1] + \':\' + releaseVersion AS source,
+         artifactId + \':\' + targetVersion AS target,
+         scope AS Scope',
+    'links_all.csv',
+    {stream: true}
+)
+
+
+
+
+#Release_all
+
+MATCH (r:Release)
+WITH r.id AS gav, r.timestamp AS timestamp
+RETURN 
+    gav AS Artifact, 
+    datetime({ epochMillis: timestamp }) AS Release
+LIMIT 10
+
+
+
+#To csv
+CALL apoc.export.csv.query(
+    'MATCH (r:Release)
+     WITH r.id AS gav, r.timestamp AS timestamp
+     RETURN 
+         gav AS Artifact, 
+         datetime({ epochMillis: timestamp }) AS release',
+    'release_all.csv',
+    {stream: true}
+)
