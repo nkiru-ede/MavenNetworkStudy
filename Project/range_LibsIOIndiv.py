@@ -26,7 +26,7 @@ def percentage_maven_targets_with_ranges(df):
     
     return percentage
 
-df = pd.read_csv("C:\\Users\\edenk\\.spyder-py3\\data\\libsIO\\links_all_Libs.csv")
+df = pd.read_csv("path to dataset\\links_all_Libs.csv")
 
 percentage = percentage_maven_targets_with_ranges(df)
 print(f"Percentage of Maven records with target in range format: {percentage:.4f}%")
