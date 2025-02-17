@@ -17,7 +17,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 
 # File paths
-BASE_DIR = "C:\\Users\\edenk\\.spyder-py3\\data\\libsIO\\maven"
+BASE_DIR = "directory path"
 VERSIONS_CSV = os.path.join(BASE_DIR, "versions.csv")
 DEPENDENCIES_CSV = os.path.join(BASE_DIR, "dependencies.csv")
 PROCESSED_PACKAGES_FILE = os.path.join(BASE_DIR, "processed_packages.txt")
